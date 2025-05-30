@@ -117,6 +117,6 @@ Bạn có thể lấy các thông tin này bằng cách đăng ký OAuth App t�
 https://github.com/settings/developers
 
 ---
-![Ảnh online](https://www.mermaidchart.com/raw/782a050e-f05a-414d-87bd-840e45651d9b?theme=light&version=v0.1&format=svg)
+![Ảnh online](/docs/image.png)
 
 **Chúc bạn thành công với hệ thống microservices!** 
