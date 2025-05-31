@@ -152,30 +152,30 @@ services:
       timeout: 5s
       retries: 5
 
-  department-service-2:
-    container_name: department-service-2
-    build:
-      context: ./department-service
-      dockerfile: Dockerfile
-    ports:
-      - "8084:8080"
-    depends_on:
-      mysql:
-        condition: service_healthy
-      eureka-server:
-        condition: service_healthy
-    networks:
-      - spring-microservice
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/microservice?createDatabaseIfNotExist=true&characterEncoding=UTF-8&serverTimeZone=UTC
-      SPRING_DATASOURCE_USERNAME: tomjenny
-      SPRING_DATASOURCE_PASSWORD: 123abc
-      SPRING_APPLICATION_NAME: department-service
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  # department-service-2:
+  #   container_name: department-service-2
+  #   build:
+  #     context: ./department-service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8084:8080"
+  #   depends_on:
+  #     mysql:
+  #       condition: service_healthy
+  #     eureka-server:
+  #       condition: service_healthy
+  #   networks:
+  #     - spring-microservice
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/microservice?createDatabaseIfNotExist=true&characterEncoding=UTF-8&serverTimeZone=UTC
+  #     SPRING_DATASOURCE_USERNAME: tomjenny
+  #     SPRING_DATASOURCE_PASSWORD: 123abc
+  #     SPRING_APPLICATION_NAME: department-service
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
 
   account-service:
     build:
@@ -188,6 +188,8 @@ services:
       mysql:
         condition: service_healthy
       eureka-server:
+        condition: service_healthy
+      config-service:
         condition: service_healthy
     networks:
       - spring-microservice
@@ -204,29 +206,29 @@ services:
       timeout: 5s
       retries: 5
 
-  admin-service:
-    build:
-      context: ./admin-service
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - "8083:8083"
-    depends_on:
-      eureka-server:
-        condition: service_healthy
-      account-service:
-        condition: service_healthy
-      department-service-1:
-        condition: service_healthy
-      department-service-2:
-        condition: service_healthy
-    networks:
-      - spring-microservice
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  # admin-service:
+  #   build:
+  #     context: ./admin-service
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8083:8083"
+  #   depends_on:
+  #     eureka-server:
+  #       condition: service_healthy
+  #     account-service:
+  #       condition: service_healthy
+  #     department-service-1:
+  #       condition: service_healthy
+  #     department-service-2:
+  #       condition: service_healthy
+  #   networks:
+  #     - spring-microservice
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
 
   # elasticsearch:
   #   image: docker.elastic.co/elasticsearch/elasticsearch:8.4.3

@@ -92,7 +92,7 @@ class LoginForm extends Component {
         event.preventDefault();   
 
         const loginRequest = Object.assign({}, this.state);
-
+        console.log(this.state)
         login(loginRequest)
         .then(response => {
             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
@@ -101,9 +101,9 @@ class LoginForm extends Component {
 
              Alert.success("You're successfully logged in!");
              this.props.history.push("/profile");
-             return <Redirect to={{
-                 pathname: "/signup",
-             }}/>;
+            //  return <Redirect to={{
+            //      pathname: "/signup",
+            //  }}/>;
         }).catch(error => {
             Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
         });
